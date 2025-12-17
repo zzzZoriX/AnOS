@@ -8,7 +8,8 @@ typedef struct {
 //  vga cursor info
     sdword  vga_pos,    // position in vga(1 step = 2 byte)
             cursor_pos; // noramal position(vga_pos / 2)
-    uword   current_line_size;
+    uword   current_line_size,
+            current_line_number;
 
 //  vga info
     sdword  vga_columns_count,  // by default - 80
@@ -36,5 +37,7 @@ void kio32_print_symbol(const char c, const symbol_attribute attr);
 void kio32_print(const sbyte* str, const symbol_attribute attrfas);
 
 void kio32_newline(void);
+
+void kio32_scroll_screen(void);
 
 #endif // KIO32
