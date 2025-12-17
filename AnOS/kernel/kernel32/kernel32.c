@@ -1,9 +1,11 @@
-#include "../moduls/kio/kio32.h"
+#include "../moduls/kio/kio32/kio32.h"
+#include "../moduls/kio/kio32/kio32-buf.h"
 
 void kernel32_main(void){
     kio32_init_vga();
     kio32_idt_init();
     kio32_kb_init();
+    kio32_buffer_init();
     
     const sbyte welcome_message[] = "Welcome to AnOS!\0";
     const sbyte version[] =         "  ver. 0.0.1\0";
@@ -17,6 +19,13 @@ void kernel32_main(void){
     asm volatile ("sti");
 
     while(true){
+        if(kio32_buffer_has_data()){
+            ubyte c = kio32_buffer_get_char();
+            if(c != 0){
+//              TODO: write a process keys
+            }
+        }
+
         asm volatile ("hlt");
     }
 }

@@ -1,8 +1,8 @@
 #ifndef KIO32
 #define KIO32
 
-#include "../utils.h"
-#include "../low-level.h"
+#include "../../utils.h"
+#include "../../low-level.h"
 #include "kio-color.h"
 #include "kio32-kb.h"   // keyboard
 #include "kio32-km.h"   // key map
@@ -42,7 +42,5 @@ void kio32_print(const sbyte* str, const symbol_attribute attrfas);
 void kio32_newline(void);
 
 void kio32_scroll_screen(void);
-
-void kio32_kbh(void); // keyboard handler
 
 #endif // KIO32

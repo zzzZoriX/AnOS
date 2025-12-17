@@ -1,5 +1,5 @@
-#include "../kio/kio32-kb.h"
-#include "../kio/kio32.h"
+#include "../../kio/kio32/kio32-kb.h"
+#include "../../kio/kio32/kio32.h"
 
 IDT_element IDT[IDT_SIZE];
 
@@ -29,8 +29,8 @@ void kio32_idt_init(void){
     write_port(PIC2_DATA_PORT, 0x28);
 
     /* ICW3 */
-    write_port(PIC1_DATA_PORT, 0x00);
-    write_port(PIC2_DATA_PORT, 0x00);
+    write_port(PIC1_DATA_PORT, 0x04);
+    write_port(PIC2_DATA_PORT, 0x02);
 
     /* ICW4 */
     write_port(PIC1_DATA_PORT, 0x01);
@@ -49,4 +49,23 @@ void kio32_idt_init(void){
 
 void kio32_kb_init(void){
     write_port(PIC1_DATA_PORT, 0xfd);
+}
+
+void kio32_kbh(void){
+    ubyte   status;
+    sbyte   keycode;
+
+    write_port(PIC1_COMMAND_PORT, 0x20);
+
+    status = read_port(KB_STATUS_PORT);
+    
+    if(status & 0x01){
+        keycode = read_port(KB_DATA_PORT);
+        if(keycode < 0 || keycode & 0x80){
+            write_port(PIC1_COMMAND_PORT, 0x20);
+            return;
+        }
+        else
+            kio32_buffer_put_char(kb_map[keycode]);
+    }
 }

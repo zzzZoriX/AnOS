@@ -1,8 +1,9 @@
 #ifndef KEYBOARD32
 #define KEYBOARD32
 
-#include "../utils.h"
-#include "../low-level.h"
+#include "../../utils.h"
+#include "../../low-level.h"
+#include "kio32-buf.h"
 
 #define INTERRUPT_GATE          0x8e
 #define KB_STATUS_PORT          0x64
@@ -26,7 +27,12 @@ typedef struct {
 
 extern IDT_element IDT[IDT_SIZE];
 
+extern void     load_idt(unsigned long* idt_ptr);
+extern void     akio32_kbh(void);
+
+
 void kio32_idt_init(void);
 void kio32_kb_init(void);
+void kio32_kbh(void); // keyboard handler
 
 #endif // KEYBOARD32

@@ -25,5 +25,13 @@ sti
 ret
 
 keyboard_handler:
+pushad
+push ds
+push es
+
 call kio32_kbh
+
+pop es
+pop ds
+popad
 iretd
