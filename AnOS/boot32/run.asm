@@ -57,4 +57,4 @@ BOOT_DRIVE: db 0
 KERNEL_ADDRESS equ 0x1000
 
 times 510 - ($ - $$) db 0
-0xaa55
+dw 0xaa55
