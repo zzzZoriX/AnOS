@@ -68,3 +68,22 @@ void kio32_scroll_screen(void){
     _vga_info.cursor_pos = _vga_info.vga_pos / 2;
     _vga_info.current_line_size = 0;
 }
+
+void kio32_kbh(void){
+    ubyte   status;
+    sbyte   keycode;
+
+    write_port(PIC1_COMMAND_PORT, 0x20);
+
+    status = read_port(KB_STATUS_PORT);
+    
+    if(status & 0x01){
+        keycode = read_port(KB_DATA_PORT);
+        if(keycode < 0 || keycode & 0x80){
+            write_port(PIC1_COMMAND_PORT, 0x20);
+            return;
+        }
+
+        kio32_print_symbol(kb_map[keycode], (symbol_attribute){.bg = BLACK, .fg = WHITE});
+    }
+}
