@@ -23,7 +23,7 @@ typedef enum {
 typedef struct {
     Color   bg, // background
             fg; // foreground
-} symbol_attribute;
+} __attribute__((packed)) symbol_attribute;
 
 #define MAKE_VGA_ATTRIBUTE_FROM_STRUCT(sattr)   (((sattr).bg << 8) | (sattr).fg)
 #define MAKE_VGA_ATTRIBUTE_FROM_VALUES(bg, fg)  ((bg) << 8 | (fg))

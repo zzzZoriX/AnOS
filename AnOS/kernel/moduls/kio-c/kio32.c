@@ -32,10 +32,17 @@ void kio32_print_symbol(const char c, const symbol_attribute attr){
     _vga_info.VGA[_vga_info.vga_pos++] = MAKE_VGA_ATTRIBUTE_FROM_STRUCT(attr);
 
     ++_vga_info.cursor_pos;
-    ++_vga_info.current_line_size;
+    _vga_info.current_line_size += _vga_info.vga_symbol_size;
 }
 
 void kio32_print(const sbyte* str, const symbol_attribute attrfas){
     for(sdword i = 0; str[i] != '\0'; ++i)
         kio32_print_symbol(str[i], attrfas);
+}
+
+void kio32_newline(void){
+    _vga_info.vga_pos += _vga_info.vga_row_size - _vga_info.current_line_size;
+    
+    _vga_info.cursor_pos = _vga_info.vga_pos / 2;
+    _vga_info.current_line_size = 0;
 }

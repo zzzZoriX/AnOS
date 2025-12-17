@@ -11,15 +11,15 @@ typedef struct {
     uword   current_line_size;
 
 //  vga info
-    sdword  vga_columns_count,
-            vga_rows_count,
-            vga_symbol_size,
-            vga_row_size,
-            vga_column_size,
-            vga_screen_size;
+    sdword  vga_columns_count,  // by default - 80
+            vga_rows_count,     // by default - 25
+            vga_symbol_size,    // 2 bytes
+            vga_row_size,       // by default - 160 bytes
+            vga_column_size,    // by default - 50 bytes
+            vga_screen_size;    // by default - 4000 bytes
 
     volatile sbyte*  VGA;
-} vga_info;
+} __attribute__((packed)) vga_info;
 
 extern vga_info    _vga_info;
 
@@ -34,5 +34,7 @@ void kio32_print_symbol(const char c, const symbol_attribute attr);
  * @param attrfas   used for all symbols in the string
  */
 void kio32_print(const sbyte* str, const symbol_attribute attrfas);
+
+void kio32_newline(void);
 
 #endif // KIO32
