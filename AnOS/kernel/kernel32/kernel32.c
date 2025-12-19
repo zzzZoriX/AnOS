@@ -15,17 +15,11 @@ void kernel32_main(void){
     kio32_newline();
     kio32_print(version, (symbol_attribute){.bg = BLACK, .fg = WHITE});
     kio32_newline();
+    
+    kio32_idt_init();
+    kio32_kb_init();
 
-    asm volatile ("sti");
 
     while(true){
-        if(kio32_buffer_has_data()){
-            ubyte c = kio32_buffer_get_char();
-            if(c != 0){
-//              TODO: write a process keys
-            }
-        }
-
-        asm volatile ("hlt");
     }
 }

@@ -3,7 +3,7 @@
 global write_port
 global read_port
 global load_idt
-global keyboard_handler
+global akio32_kbh
 
 extern kio32_kbh
 
@@ -24,14 +24,6 @@ lidt [edx]
 sti
 ret
 
-keyboard_handler:
-pushad
-push ds
-push es
-
+akio32_kbh:
 call kio32_kbh
-
-pop es
-pop ds
-popad
 iretd

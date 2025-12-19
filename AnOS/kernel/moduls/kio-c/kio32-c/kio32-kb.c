@@ -5,7 +5,7 @@ IDT_element IDT[IDT_SIZE];
 
 
 void kio32_idt_init(void){
-    unsigned long   kb_addr32 = (unsigned long)kio32_kbh,
+    unsigned long   kb_addr32 = (unsigned long)akio32_kbh,
                     idt_addr32,
                     idt_ptr[2];
 
@@ -15,7 +15,7 @@ void kio32_idt_init(void){
     now we just sum this two numbers and getting 0x21 - number of interrupt
 */
     IDT[0x21].lower_bits = kb_addr32 & 0xffff;
-    IDT[0x21].hightest_bits = (kb_addr32 & 0xffff0000) >> 16;
+    IDT[0x21].hightest_bits = (kb_addr32 >> 16) & 0xffff;
     IDT[0x21].gate = INTERRUPT_GATE;
     IDT[0x21].zero = 0;
     IDT[0x21].selector = KERNEL_CODE_SEG_OFFSET;
@@ -29,8 +29,8 @@ void kio32_idt_init(void){
     write_port(PIC2_DATA_PORT, 0x28);
 
     /* ICW3 */
-    write_port(PIC1_DATA_PORT, 0x04);
-    write_port(PIC2_DATA_PORT, 0x02);
+    write_port(PIC1_DATA_PORT, 0x00);
+    write_port(PIC2_DATA_PORT, 0x00);
 
     /* ICW4 */
     write_port(PIC1_DATA_PORT, 0x01);
@@ -62,10 +62,10 @@ void kio32_kbh(void){
     if(status & 0x01){
         keycode = read_port(KB_DATA_PORT);
         if(keycode < 0 || keycode & 0x80){
-            write_port(PIC1_COMMAND_PORT, 0x20);
+            // write_port(PIC1_COMMAND_PORT, 0x20);s
             return;
         }
         else
-            kio32_buffer_put_char(kb_map[keycode]);
+            kio32_print_symbol(kb_map[keycode], (symbol_attribute){.bg = BLACK, .fg = WHITE});
     }
 }
