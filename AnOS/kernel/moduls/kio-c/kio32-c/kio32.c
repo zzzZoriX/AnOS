@@ -68,3 +68,15 @@ void kio32_scroll_screen(void){
     _vga_info.cursor_pos = _vga_info.vga_pos / 2;
     _vga_info.current_line_size = 0;
 }
+
+void kio32_backspace(void){
+    if(_vga_info.vga_pos == 0 || _vga_info.vga_pos % _vga_info.vga_row_size == 0)
+        return;
+
+    _vga_info.vga_pos -= 2;
+    --_vga_info.cursor_pos;
+    --_vga_info.current_line_size;
+    
+    _vga_info.VGA[_vga_info.vga_pos] = ' ';
+    _vga_info.VGA[_vga_info.vga_pos + 1] = MAKE_VGA_ATTRIBUTE_FROM_VALUES(BLACK, BLACK);
+}

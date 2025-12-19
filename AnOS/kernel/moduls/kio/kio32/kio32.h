@@ -43,4 +43,6 @@ void kio32_newline(void);
 
 void kio32_scroll_screen(void);
 
+void kio32_backspace(void);
+
 #endif // KIO32

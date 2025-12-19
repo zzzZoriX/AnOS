@@ -5,7 +5,7 @@ void kio32_process_key(const sbyte k){
 //      TODO: add command processing
     }
     else if(k == '\b'){
-//      TODO: add backspace processing
+        kio32_backspace();
     }
     else if(k >= ' '){
         kio32_print_symbol(k, (symbol_attribute){.bg = BLACK, .fg = WHITE});
