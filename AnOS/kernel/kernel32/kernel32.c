@@ -1,5 +1,6 @@
 #include "../moduls/kio/kio32/kio32.h"
 #include "../moduls/kio/kio32/kio32-buf.h"
+#include "../moduls/kio/kio32/kio32-proc-key.h"
 
 void kernel32_main(void){
     kio32_init_vga();
@@ -21,5 +22,7 @@ void kernel32_main(void){
 
 
     while(true){
+        if(kio32_buffer_has_data())
+            kio32_process_key(kio32_buffer_get_char());
     }
 }

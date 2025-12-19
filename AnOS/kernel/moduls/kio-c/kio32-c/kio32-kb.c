@@ -66,6 +66,6 @@ void kio32_kbh(void){
             return;
         }
         else
-            kio32_print_symbol(kb_map[keycode], (symbol_attribute){.bg = BLACK, .fg = WHITE});
+            kio32_buffer_put_char(kb_map[keycode]);
     }
 }
