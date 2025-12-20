@@ -20,8 +20,10 @@ void kio32_init_vga(void){
 }
 
 void kio32_clear_screen(void){
-    for(sdword i = 0; i < _vga_info.vga_screen_size; ++i)
-        kio32_print_symbol(' ', (symbol_attribute){.bg = BLACK, .fg = BLACK});
+    for(sdword i = 0; i < _vga_info.vga_screen_size;){
+        _vga_info.VGA[i++] = ' ';
+        _vga_info.VGA[i++] = MAKE_VGA_ATTRIBUTE_FROM_VALUES(BLACK, BLACK);
+    }
 
     _vga_info.cursor_pos = 0;
     _vga_info.current_line_size = 0;
