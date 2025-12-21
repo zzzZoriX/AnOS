@@ -1,9 +1,6 @@
 #ifndef ANOSCMD
 #define ANOSCMD
 
-#define MAX_CMD_LEN     10
-#define MAX_CMD_ARG_LEN 512
-
 #include "../utils.h"
 #include "../str-utils.h"
 #include "anos-cmd-def.h"
@@ -20,6 +17,7 @@ extern cmd current_command;
 
 
 void cmd_put_char(const sbyte c);
+void cmd_del_last_char(void);
 void cmd_load(cmd other); 
 void cmd_clear(void);
 

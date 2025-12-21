@@ -44,7 +44,7 @@ void kio32_print(const sbyte* str, const symbol_attribute attrfas){
 }
 
 void kio32_newline(void){
-    _vga_info.vga_pos += _vga_info.vga_row_size - _vga_info.current_line_size;
+    _vga_info.vga_pos += _vga_info.vga_row_size - (_vga_info.vga_pos % _vga_info.vga_row_size);
     
     _vga_info.cursor_pos = _vga_info.vga_pos / 2;
     _vga_info.current_line_size = 0;

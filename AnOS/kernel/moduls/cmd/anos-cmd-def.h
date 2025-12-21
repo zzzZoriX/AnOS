@@ -5,4 +5,7 @@
 #define CMD_CLEAR       "clear"
 #define CMD_ECHO        "echo"
 
+#define MAX_CMD_LEN     10
+#define MAX_CMD_ARG_LEN 512
+
 #endif // ANOSCMDDDEF

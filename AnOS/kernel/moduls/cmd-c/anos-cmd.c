@@ -9,25 +9,45 @@ void cmd_put_char(const sbyte c){
     if(current_command_write_state == 2)
         return;
     else if(c == ';'){
-        current_command.cmd[current_command.cmd_index] = '\0';
-        current_command.arg[current_command.arg_index] = '\0';
+        if(current_command_write_state == 0)
+            current_command.cmd[current_command.cmd_index] = '\0';
+        else if(current_command_write_state == 1)
+            current_command.arg[current_command.arg_index] = '\0';
 
-        current_command_write_state = 1;
+        current_command_write_state = 2;
         return;
     }
     else if(c == ' ' && current_command_write_state == 0){
+        if (current_command.cmd_index == 0)
+            return;
+
         current_command.cmd[current_command.cmd_index] = '\0';
 
         current_command_write_state = 1;
         return;
     }
 
+    if(c < 0x20 && c != '\t')
+        return;
+
     if(current_command_write_state == 0){
-        current_command.cmd[current_command.cmd_index++] = c;
+        if (current_command.cmd_index < MAX_CMD_LEN - 1)
+            current_command.cmd[current_command.cmd_index++] = c;
     }
     else if(current_command_write_state == 1){
-        current_command.arg[current_command.arg_index++] = c;
+        if(current_command.arg_index < MAX_CMD_ARG_LEN - 1)
+            current_command.arg[current_command.arg_index++] = c;
     }
+}
+
+void cmd_del_last_char(void){
+    if(current_command_write_state == 2)
+        return;
+    
+    if(current_command_write_state == 0)
+        --current_command.cmd_index;
+    else if(current_command_write_state == 1)
+        --current_command.arg_index;
 }
 
 void cmd_load(cmd other){
@@ -40,6 +60,8 @@ void cmd_load(cmd other){
 
 void cmd_clear(void){
     current_command = (cmd){.cmd = "\0", .arg = "\0", .cmd_index = 0, .arg_index = 0};
+
+    current_command_write_state = 0;
 }
 
 ubyte cmd_process(void){
@@ -65,7 +87,7 @@ ubyte cmd_process(void){
         kio32_newline();
 
         kio32_print(
-            "  echo \"msg\"          - repeat your message",
+            "  echo \"msg\"     - repeat your message",
             (symbol_attribute){.bg = BLACK, .fg = WHITE}
         );
         kio32_newline();

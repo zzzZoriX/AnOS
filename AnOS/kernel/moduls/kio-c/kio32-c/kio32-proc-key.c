@@ -11,6 +11,7 @@ void kio32_process_key(const sbyte k){
         cmd_clear();
     }
     else if(k == '\b'){
+        cmd_del_last_char();
         kio32_backspace();
     }
     else if(k >= ' '){
