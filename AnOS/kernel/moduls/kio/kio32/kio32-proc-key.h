@@ -6,6 +6,6 @@
 #include "../../cmd/anos-cmd-mem.h"
 #include "../../cmd/anos-cmd.h"
 
-void kio32_process_key(const sbyte k);
+void kio32_process_key(const ubyte k);
 
 #endif // KIO32PROCK

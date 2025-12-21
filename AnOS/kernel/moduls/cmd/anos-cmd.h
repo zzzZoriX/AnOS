@@ -21,6 +21,8 @@ void cmd_del_last_char(void);
 void cmd_load(cmd other); 
 void cmd_clear(void);
 
+void cmd_print_current(void);
+
 ubyte cmd_process(void);
 
 #endif // ANOSCMD

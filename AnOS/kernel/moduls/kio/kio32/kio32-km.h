@@ -37,4 +37,14 @@ static const char kb_map[128] = {
 0,      // all others key undefined
 };
 
+#define KIO32_UP_ARROW_KEYCODE        0x48
+#define KIO32_DOWN_ARROW_KEYCODE      0x50
+#define KIO32_RIGHT_ARROW_KEYCODE     0x4d
+#define KIO32_LEFT_ARROW_KEYCODE      0x4b
+
+#define KIO32_UP_ARROW_MAGIC          130
+#define KIO32_DOWN_ARROW_MAGIC        131
+#define KIO32_RIGHT_ARROW_MAGIC       132
+#define KIO32_LEFT_ARROW_MAGIC        133
+
 #endif // KIO32KM

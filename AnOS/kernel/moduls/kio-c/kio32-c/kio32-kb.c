@@ -65,6 +65,18 @@ void kio32_kbh(void){
             // write_port(PIC1_COMMAND_PORT, 0x20);s
             return;
         }
+        else if(keycode == KIO32_UP_ARROW_KEYCODE)
+            kio32_buffer_put_char(KIO32_UP_ARROW_MAGIC);
+
+        else if(keycode == KIO32_DOWN_ARROW_KEYCODE)
+            kio32_buffer_put_char(KIO32_DOWN_ARROW_MAGIC);
+
+        else if(keycode == KIO32_LEFT_ARROW_KEYCODE)
+            kio32_buffer_put_char(KIO32_LEFT_ARROW_MAGIC);
+
+        else if(keycode == KIO32_RIGHT_ARROW_KEYCODE)
+            kio32_buffer_put_char(KIO32_RIGHT_ARROW_MAGIC);
+        
         else
             kio32_buffer_put_char(kb_map[keycode]);
     }

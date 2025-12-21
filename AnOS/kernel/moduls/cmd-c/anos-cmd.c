@@ -64,6 +64,16 @@ void cmd_clear(void){
     current_command_write_state = 0;
 }
 
+void cmd_print_current(void){
+    if(current_command.cmd_index > 0)
+        kio32_print(current_command.cmd, (symbol_attribute){.bg = BLACK, .fg = WHITE});
+    if(current_command.arg_index > 0){
+        kio32_print_symbol(' ', (symbol_attribute){.bg = BLACK, .fg = WHITE});
+        kio32_print(current_command.arg, (symbol_attribute){.bg = BLACK, .fg = WHITE});
+        kio32_print_symbol(';', (symbol_attribute){.bg = BLACK, .fg = WHITE});
+    }
+}
+
 ubyte cmd_process(void){
     bool_t isavcmd = true;
 
