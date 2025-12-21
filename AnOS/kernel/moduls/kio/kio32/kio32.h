@@ -31,6 +31,7 @@ extern vga_info    _vga_info;
 void kio32_init_vga(void);
 
 void kio32_clear_screen(void);
+void kio32_clear_line(void);
 
 void kio32_print_symbol(const char c, const symbol_attribute attr);
 

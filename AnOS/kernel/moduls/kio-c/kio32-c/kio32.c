@@ -82,3 +82,8 @@ void kio32_backspace(void){
     _vga_info.VGA[_vga_info.vga_pos] = ' ';
     _vga_info.VGA[_vga_info.vga_pos + 1] = MAKE_VGA_ATTRIBUTE_FROM_VALUES(BLACK, BLACK);
 }
+
+void kio32_clear_line(void){
+    for(sdword i = 0; i < _vga_info.current_line_size; ++i)
+        kio32_backspace();
+}
