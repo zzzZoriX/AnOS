@@ -1,4 +1,5 @@
 #include "../cmd/anos-cmd.h"
+#include "../cmd/anos-cmd-mem.h"
 
 cmd current_command = (cmd){.cmd = "\0", .arg = "\0", .cmd_index = 0, .arg_index = 0};
 
@@ -101,6 +102,12 @@ ubyte cmd_process(void){
             (symbol_attribute){.bg = BLACK, .fg = WHITE}
         );
         kio32_newline();
+
+        kio32_print(
+            "  clrcmdmem        - clear all remembered command",
+            (symbol_attribute){.bg = BLACK, .fg = WHITE}
+        );
+        kio32_newline();
     }
     else if(compare(current_command.cmd, CMD_CLEAR) == 0)
         kio32_clear_screen();
@@ -111,7 +118,8 @@ ubyte cmd_process(void){
         );
         kio32_newline();
     }
-
+    else if(compare(current_command.cmd, CMD_CLRCMDMEM) == 0)
+        cmd_mem_clear();
     else{
         kio32_print(
             "Unknown command: \"",
